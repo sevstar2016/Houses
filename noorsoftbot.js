@@ -1,6 +1,6 @@
 const { Telegraf } = require('telegraf');
 var Gpio = require('onoff').Gpio
-var LED = new Gpio(2, 'out')
+var LED = new Gpio(4, 'out')
 var blinkInterval = setInterval(blinkLED, 250)
 
 const bot = new Telegraf('1615771001:AAF522v6iLHQBChZdvx-kTJ9mmxg6aubor4')
