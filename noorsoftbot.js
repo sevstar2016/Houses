@@ -13,6 +13,9 @@ bot.hears('ping', async (ctx) => {
         endBlink()
 })
 
+bot.launch()
+
+
 function blinkLED() {
         if (LED.readSync() === 0) { 
           LED.writeSync(1)
@@ -29,5 +32,3 @@ function endBlink() {
 }
 
 setTimeout(endBlink, 5000)
-
-bot.launch()
