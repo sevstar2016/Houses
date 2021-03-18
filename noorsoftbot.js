@@ -1,7 +1,7 @@
 const { Telegraf } = require('telegraf');
-var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
-var LED = new Gpio(2, 'out'); //use GPIO pin 4, and specify that it is output
-var blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 
+var Gpio = require('onoff').Gpio
+var LED = new Gpio(2, 'out')
+var blinkInterval = setInterval(blinkLED, 250)
 
 const bot = new Telegraf('1615771001:AAF522v6iLHQBChZdvx-kTJ9mmxg6aubor4')
 
@@ -13,21 +13,21 @@ bot.hears('ping', async (ctx) => {
         endBlink()
 })
 
-function blinkLED() { //function to start blinking
-        if (LED.readSync() === 0) { //check the pin state, if the state is 0 (or off)
-          LED.writeSync(1); //set pin state to 1 (turn LED on)
+function blinkLED() {
+        if (LED.readSync() === 0) { 
+          LED.writeSync(1)
         } else {
-          LED.writeSync(0); //set pin state to 0 (turn LED off)
+          LED.writeSync(0)
         }
 }
 
 
-function endBlink() { //function to stop blinking
-        clearInterval(blinkInterval); // Stop blink intervals
-        LED.writeSync(0); // Turn LED off
-        LED.unexport(); // Unexport GPIO to free resources
+function endBlink() { 
+        clearInterval(blinkInterval)
+        LED.writeSync(0)
+        LED.unexport()
 }
 
-setTimeout(endBlink, 5000); //stop blinking after 5 seconds 
+setTimeout(endBlink, 5000)
 
 bot.launch()
