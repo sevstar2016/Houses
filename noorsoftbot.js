@@ -7,7 +7,7 @@ bot.start( ctx => ctx.reply(`
 `))
 
 bot.hears('ping', async (ctx) => {
-        led.blinkLED(4)
+        LED.blinkLED(4)
 })
 
 bot.launch()
