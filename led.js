@@ -1,10 +1,9 @@
 // blinking LED \\
 
 var Gpio = require('onoff').Gpio
-var LED = new Gpio(4, 'out')
 
 function blinkLED(pin) {
-    LED = new Gpio(pin, 'out')
+    const LED = new Gpio(pin, 'out')
     if (LED.readSync() === 0) { 
       LED.writeSync(1)
     } else {
