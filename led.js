@@ -3,7 +3,7 @@
 var Gpio = require('onoff').Gpio
 var LED = new Gpio(4, 'out')
 
-function blinkLED(pin = 4) {
+function blinkLED(pin) {
     LED = new Gpio(pin, 'out')
     if (LED.readSync() === 0) { 
       LED.writeSync(1)
@@ -18,4 +18,4 @@ function endBlink() {
     LED.unexport()
 }
 
-module.exports.blinkLED = blinkLED
+module.exports.led = {blinkLED};
