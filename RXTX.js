@@ -1,17 +1,13 @@
-var SerialPort = require("serialport").SerialPort;
-    var serialPort = new SerialPort("/dev/serial0", {
-      baudrate: 9600
-    });
-    
-    serialPort.on("open", function () {
-      console.log('open');
-      
-      serialPort.on('data', function(data) {
-        console.log('data received: ' + data);
-      });
-      
-      serialPort.write(new Buffer('4','ascii'), function(err, results) {
-        console.log('err ' + err);
-        console.log('results ' + results);
-      });
-    });
+const SerialPort = require('serialport')
+const ReadLine = require('@serialport/parser-readline')
+
+const port = new SerialPort('/dev/ttyACM0', { baundRate:9600 })
+const parser = port.pipe(new ReadLine({delimiter: '\n'}))
+
+port.on("open", () => {
+    console.log('serial port open')
+})
+
+parser.on('data', data => {
+    console.log('got word from arduino:', data)
+})
