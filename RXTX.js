@@ -15,7 +15,8 @@ port.on("open", () => {
 })
 
 parser.on('data', data => {
-    if(data == "1"){
+    console.log('Data: ', data)
+    if(data === '1'){
         console.log('tested')
     }
 })
