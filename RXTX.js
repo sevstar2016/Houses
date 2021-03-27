@@ -1,24 +1,17 @@
-var serial; // instance of the serialport library
-var portName = '/dev/serial0'; // fill in your serial port name here
- 
-var circleSize = 50;
- 
-function setup() {
-  serial = new p5.SerialPort(document.location.hostname);
-  // set callback functions for list and data events:
-  serial.on('list', printList);
-  serial.on('data', serialEvent);
-  serial.open(portName);
-}
- 
-function serialEvent() {
-  // read a line of text in from the serial port:
-  var data = serial.readLine();
-  console.log(data);
-}
- 
-function printList(portList) {
-  for (var i = 0; i < portList.length; i++) {
-    console.log(i + ' ' + portList[i]);
-  }
-}
+var SerialPort = require("serialport").SerialPort;
+    var serialPort = new SerialPort("/dev/serial0", {
+      baudrate: 9600
+    });
+    
+    serialPort.on("open", function () {
+      console.log('open');
+      
+      serialPort.on('data', function(data) {
+        console.log('data received: ' + data);
+      });
+      
+      serialPort.write(new Buffer('4','ascii'), function(err, results) {
+        console.log('err ' + err);
+        console.log('results ' + results);
+      });
+    });
