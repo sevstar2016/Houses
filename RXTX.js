@@ -1,7 +1,7 @@
 const SerialPort = require('serialport')
 const ReadLine = require('@serialport/parser-readline')
 
-const port = new SerialPort('/dev/ttyAMA0', { baundRate:9600 })
+const port = new SerialPort('/dev/serial0', { baundRate:9600 })
 const parser = port.pipe(new ReadLine({delimiter: '\n'}))
 
 port.on("open", () => {
@@ -9,5 +9,14 @@ port.on("open", () => {
 })
 
 parser.on('data', data => {
-    console.log('got word from arduino: ', data)
+    if(data == "1"){
+        console.log('tested')
+    }
+})
+
+port.write('test\n', (err) => {
+    if(err){
+        return console.log('Error: ', err.message)
+    }
+    console.log('writen')
 })
