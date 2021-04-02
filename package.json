@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node noorsoftbot.js",
-    "start:prod": "npm i | node noorsoftbot.js"
+    "start:prod": "npm i | enval $(cat .env) node noorsoftbot.js"
   },
   "author": "",
   "license": "ISC",
