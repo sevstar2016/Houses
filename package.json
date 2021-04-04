@@ -2,9 +2,11 @@
   "name": "qq",
   "version": "1.0.0",
   "description": "",
-  "main": "bot.js",
+  "main": "noorsoftbot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "eval $(cat .env) node noorsoftbot.js",
+    "start:prod": "npm i | node noorsoftbot.js"
   },
   "author": "",
   "license": "ISC",
