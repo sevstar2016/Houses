@@ -10,10 +10,7 @@ bot.start( ctx => ctx.reply(`
 
 bot.hears('login', async (ctx) => {
         ctx.reply('password, pls')
-        bot.hears('1234', async (ctx) => {
-                ctx.reply('OK!')
-        })
-})
+        
 
 
 console.log('started');
