@@ -7,12 +7,12 @@ const bot = new Telegraf(process.env.PROJ_KEY.toString())
 bot.command('/login', async (ctx) => {
         if(ctx.message.text.substr(7) === '1') { 
                 ctx.reply('OK!')
-                fs.appendFile('test.txt', "\n"+ctx.message.chat.id,                     function (err) {
+                fs.appendFile('test.txt', "\n"+ctx.message.chat.id,function (err) {
                         if(err) throw err; 
                })
-        } else {
-                ctx.reply('Failed')  
-        }
+               } else {
+                       ctx.reply('Failed')  
+               }
 })
 
 bot.command('/ping', async (ctx) => {
