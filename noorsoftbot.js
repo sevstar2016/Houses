@@ -5,7 +5,8 @@ const fs = require('fs');
 const bot = new Telegraf(process.env.PROJ_KEY.toString())
 
 bot.command('/login', async (ctx) => {
-        if(ctx.message.text.substr(7) === '1') { 
+        var strq = ctx.message.text.split(' ');
+        if(strq[1] === '1') { 
                 ctx.reply('OK!')
                 fs.appendFile('test.txt', "\n"+ctx.message.chat.id,function (err) {
                         if(err) throw err; 
