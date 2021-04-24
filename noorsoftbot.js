@@ -1,28 +1,21 @@
 const { Telegraf } = require('telegraf');
 //const { led } = require('./led.js');
 const fs = require('fs');
+const {logining,login} = require('./logging.js')
 
-const bot = new Telegraf(process.env.PROJ_KEY.toString())
+const bot = new Telegraf('1615771001:AAF522v6iLHQBChZdvx-kTJ9mmxg6aubor4')
 
 bot.command('/login', async (ctx) => {
-        var strq = ctx.message.text.split(' ');
-        if(strq[1] === '1') { 
-                ctx.reply('OK!')
-                fs.appendFile('test.txt', "\n"+ctx.message.chat.id,function (err) {
-                        if(err) throw err; 
-               })
-               } else {
-                       ctx.reply('Failed')  
-               }
+        var logi = new logining(ctx.message.text, '1', ctx.message.chat.id.toString())
+        ctx.reply(login(ctx.message.chat.id.toString(), '1', ctx.message.text))
 })
 
 bot.command('/ping', async (ctx) => {
-         fs.readFile('test.txt', function (err, data) {
-         if (err) throw err;
-         if(data.includes(ctx.message.chat.id.toString())){
-                 ctx.reply('pong')
-         }
-         })})
+        var logi = new logining(ctx.message.text, '1', ctx.message.chat.id.toString())
+        if(logi.isLogin()){
+                reply("pong!")
+        }
+})
 
 
 console.log('started');
