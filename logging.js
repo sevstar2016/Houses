@@ -1,8 +1,6 @@
 const fs = require('fs');
 const { Telegraf } = require('telegraf');
 
-let c = 'c'
-
 class logining {
         constructor(ctx, pass){
                 this.ctx = ctx,
