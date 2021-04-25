@@ -1,51 +1,32 @@
-const fs = require('fs');
+const {Users} = require("./users.js")
 
 class logining {
-        constructor(ctx, pass){
-                this.ctx = ctx,
+        constructor(pass) {
+                // this.ctx = ctx
                 this.pass = pass
+                this.users = new Users();
         }
 
-        
-        
-        isLogin(func) {
-                console.log(this.ctx.message.chat.id)
-                var id = this.ctx.message.chat.id
-                fs.readFile('test.txt', function (err, data) {
-                        if (err) throw err;
-                        if(data.toString().includes(id.toString())){
-                                func()
-                        }})
-                
+        isLogin(ctx) {
+                let id = ctx.message.chat.id.toString()
+                console.log(this.users)
+                return this.users.includes(id)
         }
 
-        login(helloMesage = 'Welcome', loginMessage = 'You are already signed in') {
-                var strq = this.ctx.message.text.split(' ');
+        login(ctx, helloMesage = 'Welcome', loginMessage = 'You are already signed in') {
+                var strq = ctx.message.text.split(' ');
                 var pass = this.pass
-                var id = this.ctx.message.chat.id
-                var ctx = this.ctx
-                var dd = false
-                if(strq[1] === pass) { 
-                        fs.readFile('test.txt', function (err, data) {
-                                if (err) throw err;
-                                if(data.toString().includes(id.toString())){
-                                        dd = true
-                                }
-                                if(dd === true){
-                                        ctx.reply(loginMessage)
-                                }
-                                else{
-                                        fs.appendFile('test.txt', "\n" + id.toString(), function (err) {
-                                        if(err) throw err; 
-                                        })
-                                        ctx.reply(helloMesage)
-                                }
-                        })
+                var id = ctx.message.chat.id.toString()
+                if (strq[1] === pass) {
+                        if (this.users.includes(id)) {
+                                ctx.reply(loginMessage)
+                        }
+                        else {
+                                this.users.addUser(id)
+                                ctx.reply(helloMesage)
+                        }
                 }
-                else {
 
-                }
-                        
         }
 }
 

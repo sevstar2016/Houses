@@ -1,21 +1,17 @@
 const { Telegraf } = require('telegraf');
 //const { led } = require('./led.js');
-const fs = require('fs');
 const logining = require('./logging.js').logining
-const {PROJ_KEY} = process.env;
+const {PROJ_KEY, PASS} = process.env;
 
 const bot = new Telegraf(PROJ_KEY.toString())
+const logi = new logining('1')
 
 bot.command('/login', async (ctx) => {
-        var logi = new logining(ctx, '1')
-        logi.login()
+        logi.login(ctx)
 })
 
 bot.command('/ping', async (ctx) => {
-        var logi = new logining(ctx, '1')
-        logi.isLogin(() => {
-                ctx.reply('pong')
-        })
+        ctx.reply(logi.isLogin(ctx))
 })
 
 
