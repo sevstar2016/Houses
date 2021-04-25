@@ -1,9 +1,9 @@
-const { Telegraf } = require('telegraf');
-//const { led } = require('./led.js');
-const fs = require('fs');
-const {logining,login} = require('./logging.js')
-const {PROJ_KEY} = process.env;
+const bot = new Telegraf(PROJ_KEY.toString())
+const logining = require('./logging.js').logining
+const {PROJ_KEY, PASS} = process.env;
 
+const bot = new Telegraf(PROJ_KEY.toString())
+const logi = new logining(PASS.toString())
 const PiCamera = require('pi-camera');
 const myCamera = new PiCamera({
   mode: 'photo',
@@ -13,18 +13,12 @@ const myCamera = new PiCamera({
   nopreview: true,
 });
 
-const bot = new Telegraf(PROJ_KEY.toString())
-
 bot.command('/login', async (ctx) => {
-        var logi = new logining(ctx.message.text, '1', ctx.message.chat.id.toString())
-        ctx.reply(login(ctx.message.chat.id.toString(), '1', ctx.message.text))
+        logi.login(ctx)
 })
 
 bot.command('/ping', async (ctx) => {
-        var logi = new logining(ctx.message.text, '1', ctx.message.chat.id.toString())
-        if(logi.isLogin()){
-                reply("pong!")
-        }
+        ctx.reply(logi.isLogin(ctx))
 })
 
 bot.command('/shot', async (ctx) =>{
