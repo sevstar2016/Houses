@@ -2,8 +2,9 @@ const { Telegraf } = require('telegraf');
 //const { led } = require('./led.js');
 const fs = require('fs');
 const {logining,login} = require('./logging.js')
+const {PROJ_KEY} = process.env;
 
-const bot = new Telegraf('1615771001:AAF522v6iLHQBChZdvx-kTJ9mmxg6aubor4')
+const bot = new Telegraf(PROJ_KEY.toString())
 
 bot.command('/login', async (ctx) => {
         var logi = new logining(ctx.message.text, '1', ctx.message.chat.id.toString())
