@@ -1,57 +1,57 @@
 const fs = require('fs');
+const { Telegraf } = require('telegraf');
 
 let c = 'c'
 
 class logining {
-        constructor(message, pass, id){
-                this.message = message,
-                this.pass = pass,
-                this.id = id
+        constructor(ctx, pass){
+                this.ctx = ctx,
+                this.pass = pass
         }
 
         
         
-        isLogin() {
-                console.log(logining.id)
+        isLogin(func) {
+                console.log(this.ctx.message.chat.id)
+                var id = this.ctx.message.chat.id
                 fs.readFile('test.txt', function (err, data) {
                         if (err) throw err;
-                        if(data.toString().includes(logining.id)){
-                                return true;
+                        if(data.toString().includes(id.toString())){
+                                func()
                         }
                         else {
-                                return false;
                         }})
                 
         }
-        login(id, pass, message) {
-                var strq = message.split(' ');
+        login(helloMesage = 'Welcome', loginMessage = 'You are already signed in') {
+                var strq = this.ctx.message.text.split(' ');
+                var pass = this.pass
+                var id = this.ctx.message.chat.id
+                var ctx = this.ctx
                 var dd = new Boolean(false)
-        
-                        setTimeout(() =>{
-                                if(strq[1] === pass) { 
-                                        fs.readFile('test.txt', function (err, data) {
-                                            if (err) throw err;
-                                            if(data.toString().includes(id)){
-                                                console.log(data.toString())
-                                                dd = new Boolean(true)
-                                                        if(dd){
-                                                                console.log(dd.toString())
-                                                                return ('1');
-                                                        }else{
-                                                                fs.appendFile('test.txt', "\n" + id.toString(), function (err) {
-                                                                        if(err) throw err; 
-                                                                })
-                                                                console.log(dd.toString())
-                                                                return ('2');
-                                                        }
-                                            }})
-                                        }
+                if(strq[1] === pass) { 
+                        fs.readFile('test.txt', function (err, data) {
+                                if (err) throw err;
+                                if(data.toString().includes(id.toString())){
+                                        console.log(data.toString())
+                                        dd = new Boolean(true)
+                                }
+                                if(dd === true){
+                                        console.log(dd.toString())
+                                        ctx.reply(loginMessage)
+                                }else{
+                                        fs.appendFile('test.txt', "\n" + id.toString(), function (err) {
+                                        if(err) throw err; 
+                                        })
+                                        console.log(dd.toString())
+                                        ctx.reply(helloMesage)
+                                }
                         })
+                }
                         
         }
 }
 
 module.exports = {
-        logining,
-        login
+        logining
 }
