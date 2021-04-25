@@ -1,8 +1,8 @@
 const { Telegraf } = require('telegraf');
 const { led } = require('./led.js');
-const {TL_KEY} = process.env;
+const {PROJ_KEY} = process.env;
 
-const bot = new Telegraf(TL_KEY)
+const bot = new Telegraf(PROJ_KEY)
 
 bot.start( ctx => ctx.reply(`
 `))
