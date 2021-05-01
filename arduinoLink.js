@@ -28,6 +28,7 @@ class arduino {
     }
     sendMessageFromAdress(adress = '', message = ''){
         this.port.write('adress:'+adress + '$' + message + '%')
+        console.log("send")
     }
 }
 

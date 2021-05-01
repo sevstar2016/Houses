@@ -20,7 +20,7 @@ bot.command('/login', async (ctx) => {
 })
 
 bot.command('/ping', async (ctx) => {
-    arduino1.sendToPin('13')
+    arduino1.sendMessageFromAdress('123', ctx.message.text.substring(6))
 })
 
 arduino1.getParser().on('data', data => {
