@@ -20,7 +20,7 @@ bot.command('/login', async (ctx) => {
 })
 
 bot.command('/ping', async (ctx) => {
-    ctx.reply(arduino1.sendToPin('13'))
+    arduino1.sendToPin('13')
 })
 
 arduino1.getParser().on('data', data => {
