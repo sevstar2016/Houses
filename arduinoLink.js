@@ -15,6 +15,7 @@ class arduino {
         this.port.on("open", () => {
             console.log('serial port open')
         })
+        this.value = "";
     }
 
     getPort() {
@@ -24,11 +25,28 @@ class arduino {
         return this.parser
     }
     sendToPin(pin = '') {
-        this.port.write('pin:'+pin+'%')
+        this.port.write('pin:' + pin + '%')
     }
-    sendMessageFromAdress(adress = '', message = ''){
-        this.port.write('adress:'+adress + '$' + message + '%')
+    sendMessageFromAdress(adress = '', message = '') {
+        this.port.write('adress:' + adress + '$' + message + '%')
         console.log("send")
+    }
+    retValue(){
+        return value;
+    }
+    getSensorValue(pin = '', func) {
+        this.port.write('get:'+pin+'%')
+        let pp = new Promise((resolve, reject) => {
+            this.parser.on('data', data => {
+                if(data != ""){
+                    resolve(data);
+                }
+            })
+        })
+
+        pp.then((value) => {
+            func(value);
+        })
     }
 }
 

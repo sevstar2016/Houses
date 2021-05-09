@@ -1,12 +1,12 @@
-const {logining} = require('./logging.js')
+const { logining } = require('./logging.js')
 const { PROJ_KEY, PASS } = process.env;
 const { Telegraf } = require('telegraf')
 const { arduino } = require('./arduinoLink.js')
 
-const bot = new Telegraf(PROJ_KEY.toString())
-const logi = new logining(PASS.toString())
+const bot = new Telegraf(PROJ_KEY)
+const logi = new logining(PASS)
 const PiCamera = require('pi-camera');
-const arduino1 = new arduino('COM9', '\n')
+const arduino1 = new arduino('/dev/cu.usbserial-A603R9ER', '\n')
 const myCamera = new PiCamera({
     mode: 'photo',
     output: `${__dirname}/test.jpg`,
@@ -20,7 +20,9 @@ bot.command('/login', async (ctx) => {
 })
 
 bot.command('/ping', async (ctx) => {
-    arduino1.sendMessageFromAdress('123', ctx.message.text.substring(6))
+    arduino1.getSensorValue('enc', (val) => {
+        ctx.reply(val);
+    })
 })
 
 arduino1.getParser().on('data', data => {
