@@ -39,6 +39,11 @@ bot.command('/shot', async (ctx) => {
         });
 })
 
+bot.command('/water', async (ctx) => {
+    arduino1.getSensorValue('A1', (value)=>{
+        ctx.reply(value)
+    })
+})
 
 console.log('started');
 
