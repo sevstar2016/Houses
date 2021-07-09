@@ -4,14 +4,6 @@ const { Telegraf } = require('telegraf')
 
 const bot = new Telegraf(PROJ_KEY.toString())
 const logi = new logining(PASS.toString())
-const PiCamera = require('pi-camera');
-const myCamera = new PiCamera({
-    mode: 'photo',
-    output: `${__dirname}/test.jpg`,
-    width: 640,
-    height: 480,
-    nopreview: true,
-});
 
 bot.command('/login', async (ctx) => {
     logi.login(ctx)
