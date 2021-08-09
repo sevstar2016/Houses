@@ -21,7 +21,6 @@ class arduino {
     getPort() {
         return this.port
     }
-<<<<<<< HEAD
     
     getParser() {
         return this.parser
@@ -31,29 +30,15 @@ class arduino {
         this.port.write('pin:' + pin + '%')
     }
 
-=======
-    getParser() {
-        return this.parser
-    }
-    sendToPin(pin = '') {
-        this.port.write('pin:' + pin + '%')
-    }
->>>>>>> 5bcdd0f531293cab00172be9cf307a1598ba92d4
     sendMessageFromAdress(adress = '', message = '') {
         this.port.write('adress:' + adress + '$' + message + '%')
         console.log("send")
     }
-<<<<<<< HEAD
 
     retValue(){
         return value;
     }
 
-=======
-    retValue(){
-        return value;
-    }
->>>>>>> 5bcdd0f531293cab00172be9cf307a1598ba92d4
     getSensorValue(pin = '', func) {
         this.port.write('get:'+pin+'%')
         let pp = new Promise((resolve, reject) => {
