@@ -1,10 +1,11 @@
 const { logining } = require('./logging.js')
-const { PROJ_KEY, PASS } = process.env;
 const { Telegraf } = require('telegraf')
 const { arduino } = require('./arduinoLink.js')
 
-const bot = new Telegraf(PROJ_KEY.toString())
-const logi = new logining(PASS.toString())
+require('dotenv').config()
+
+const bot = new Telegraf(process.env.PROJ_KEY.toString())
+const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
 const arduino1 = new arduino('COM8', '\n')
 const myCamera = new PiCamera({
