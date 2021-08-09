@@ -40,7 +40,7 @@ bot.command('/shot', async (ctx) => {
 })
 
 bot.command('/water', async (ctx) => {
-    arduino1.getSensorValue('A0', (value)=>{
+    arduino1.getSensorValue('0', (value)=>{
         ctx.reply(value)
         return
     })
