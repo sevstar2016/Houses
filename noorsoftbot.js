@@ -7,14 +7,7 @@ require('dotenv').config()
 const bot = new Telegraf(process.env.PROJ_KEY.toString())
 const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
-const arduino1 = new arduino('COM8', '\n')
-const myCamera = new PiCamera({
-    mode: 'photo',
-    output: `${__dirname}/test.jpg`,
-    width: 640,
-    height: 480,
-    nopreview: true,
-});
+const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
 bot.command('/login', async (ctx) => {
     logi.login(ctx)
@@ -24,20 +17,6 @@ bot.command('/ping', async (ctx) => {
     arduino1.getSensorValue('enc', (val) => {
         ctx.reply(val);
     })
-})
-
-arduino1.getParser().on('data', data => {
-    console.log(data)
-})
-
-bot.command('/shot', async (ctx) => {
-    myCamera.snap()
-        .then((result) => {
-            ctx.replyWithPhoto(result)
-        })
-        .catch((error) => {
-            console.log(error)
-        });
 })
 
 bot.command('/water', async (ctx) => {
