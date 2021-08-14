@@ -1,4 +1,4 @@
-FROM node:12-ubuntu
+FROM node:12
 COPY package.json ./
 COPY . ./
 RUN npm i
