@@ -28,6 +28,10 @@ bot.command('/water', async (ctx) => {
     }
 })
 
+bot.command('/exit', async (ctx) => {
+    process.exit(1)
+})
+
 console.log('started');
 
 
