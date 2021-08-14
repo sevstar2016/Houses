@@ -14,16 +14,18 @@ bot.command('/login', async (ctx) => {
 })
 
 bot.command('/ping', async (ctx) => {
-    arduino1.getSensorValue('enc', (val) => {
-        ctx.reply(val);
-    })
+    if(logi.isLogin(ctx)){
+        ctx.reply('pong!')
+    }
 })
 
 bot.command('/water', async (ctx) => {
-    arduino1.getSensorValue('0', (value)=>{
-        ctx.reply(value)
-        return
-    })
+    if(logi.isLogin(ctx)){
+        arduino1.getSensorValue('0', (value)=>{
+            ctx.reply(value)
+            return
+        })
+    }
 })
 
 console.log('started');
