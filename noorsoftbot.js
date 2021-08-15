@@ -15,7 +15,7 @@ bot.hears('help', async ({ reply }) => {
     const keyboard = Keyboard.make(['help', 'ping', 'water'], {pattern: [1,2]})
     reply('ping')
     reply('water')
-    await reply('test', keyboard.reply())
+    await reply('', keyboard.reply())
     console.log(keyboard)
 })
 
