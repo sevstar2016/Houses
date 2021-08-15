@@ -13,13 +13,13 @@ bot.command('/login', async (ctx) => {
     logi.login(ctx)
 })
 
-bot.command('/ping', async (ctx) => {
+bot.action('ping', async (ctx) => {
     if(logi.isLogin(ctx)){
         ctx.reply('pong!')
     }
 })
 
-bot.command('/water', async (ctx) => {
+bot.action('water', async (ctx) => {
     if(logi.isLogin(ctx)){
         arduino1.getSensorValue('0', (value)=>{
             ctx.reply(value)
