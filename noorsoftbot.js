@@ -13,7 +13,7 @@ const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 bot.on('text', async ({ reply }) => {
     const keyboard = Keyboard.make([['ping', 'water']])
 
-    await reply('Simple built-in keyboard', keyboard.reply())
+    await reply(keyboard.reply())
     console.log(keyboard)
 })
 
