@@ -10,19 +10,14 @@ const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
 const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
-const keyboard = Keyboard.make([
-    ['help'],
-    ['ping', 'water']])
-
-bot.start(async ({ reply }) => {
-    keyboard.reply()
-    console.log(keyboard)
-})
-
-bot.hears('help', async ({ reply }) =>{
+bot.hears('help', async ({ reply }) => {
     reply('ping')
     reply('water')
+    const keyboard = Keyboard.make([
+        ['help'],
+        ['ping', 'water']])
     keyboard.reply()
+    console.log(keyboard)
 })
 
 bot.command('/login', async (ctx) => {
