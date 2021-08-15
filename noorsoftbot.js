@@ -1,5 +1,6 @@
 const { logining } = require('./logging.js')
 const { Telegraf } = require('telegraf')
+const { Keyboard } = require('telegram-keyboard')
 const { arduino } = require('./arduinoLink.js')
 
 require('dotenv').config()
@@ -13,19 +14,23 @@ bot.command('/login', async (ctx) => {
     logi.login(ctx)
 })
 
-bot.action('ping', async (ctx) => {
+bot.hears('ping', async (ctx) => {
     if(logi.isLogin(ctx)){
         ctx.reply('pong!')
     }
 })
 
-bot.action('water', async (ctx) => {
+bot.hears('water', async (ctx) => {
     if(logi.isLogin(ctx)){
         arduino1.getSensorValue('0', (value)=>{
             ctx.reply(value)
             return
         })
     }
+})
+
+bot.on('text', async ({ reply }) => {
+    const keyboard = Keyboard.make(['ping', 'water']).reply()
 })
 
 console.log('started');
