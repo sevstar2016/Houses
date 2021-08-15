@@ -30,7 +30,9 @@ bot.hears('water', async (ctx) => {
 })
 
 bot.on('text', async ({ reply }) => {
-    const keyboard = Keyboard.make(['ping', 'water']).reply()
+    const keyboard = Keyboard.make(['ping', 'water'])
+
+    await reply(keyboard.reply())
 })
 
 console.log('started');
