@@ -14,6 +14,7 @@ bot.on('text', async ({ reply }) => {
     const keyboard = Keyboard.make([['ping', 'water']])
 
     await reply('Simple built-in keyboard', keyboard.reply())
+    console.log(keyboard)
 })
 
 bot.command('/login', async (ctx) => {
