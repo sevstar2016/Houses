@@ -19,9 +19,9 @@ bot.start(async ({ reply }) => {
     console.log(keyboard)
 })
 
-bot.hears('help', async (ctx) =>{
-    ctx.reply('ping')
-    ctx.reply('water')
+bot.hears('help', async ({ reply }) =>{
+    reply('ping')
+    reply('water')
     keyboard.reply()
 })
 
