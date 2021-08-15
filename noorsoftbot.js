@@ -10,10 +10,9 @@ const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
 const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
-bot.on('text', async ({ reply }) => {
+bot.start(async ({ reply }) => {
     const keyboard = Keyboard.make([['ping', 'water']])
-
-    await reply(keyboard.reply())
+    keyboard.reply()
     console.log(keyboard)
 })
 
