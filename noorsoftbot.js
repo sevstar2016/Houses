@@ -12,10 +12,9 @@ const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
 
 bot.hears('help', async ({ reply }) => {
-    const keyboard = Keyboard.make([['help'], ['ping', 'water']])
+    const keyboard = Keyboard.make([['help'], ['ping', 'water']]).reply()
     reply('ping')
     reply('water')
-    keyboard.reply()
     console.log(keyboard)
 })
 
@@ -36,10 +35,6 @@ bot.hears('water', async (ctx) => {
             return
         })
     }
-})
-
-bot.on('text', async ({ reply }) => {
-    //const keyboard = Keyboard.make([['help'], ['ping', 'water']])
 })
 
 console.log('started');
