@@ -10,6 +10,12 @@ const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
 const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
+bot.on('text', async ({ reply }) => {
+    const keyboard = Keyboard.make([['ping', 'water']])
+
+    await reply('Simple built-in keyboard', keyboard.reply())
+})
+
 bot.command('/login', async (ctx) => {
     logi.login(ctx)
 })
@@ -27,12 +33,6 @@ bot.hears('water', async (ctx) => {
             return
         })
     }
-})
-
-bot.on('text', async ({ reply }) => {
-    const keyboard = Keyboard.make(['ping', 'water'])
-
-    await reply('Simple built-in keyboard', keyboard.reply())
 })
 
 console.log('started');
