@@ -14,7 +14,6 @@ bot.hears('help', async ({ reply }) => {
     reply('ping')
     reply('water')
     const keyboard = Keyboard.make([
-        ['help'],
         ['ping', 'water']])
     keyboard.reply()
     console.log(keyboard)
