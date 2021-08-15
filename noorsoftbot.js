@@ -14,7 +14,7 @@ bot.on('text', async ({ reply }) => {
     const keyboard = Keyboard.make([
         ['help'],
         ['ping', 'water']])
-    keyboard.reply()
+    reply(keyboard.reply())
     console.log(keyboard)
 })
 
