@@ -11,14 +11,16 @@ const PiCamera = require('pi-camera');
 const arduino1 = new arduino('/dev/ttyUSB0', '\n')
 
 bot.on('text', async ({ reply }) => {
-    const keyboard = Keyboard.make(['help', 'ping', 'water'])
-    keyboard.reply()
+    const keyboard = Keyboard.make([['help'], ['ping', 'water']])
+    await keyboard.reply()
     console.log(keyboard)
 })
 
 bot.hears('help', async ({ reply }) => {
     reply('ping')
     reply('water')
+    keyboard.reply()
+    console.log(keyboard)
 })
 
 bot.command('/login', async (ctx) => {
