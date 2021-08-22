@@ -51,5 +51,5 @@ class Arduino {
 }
 
 module.exports = {
-    arduino
+    Arduino
 }
