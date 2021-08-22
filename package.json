@@ -4,8 +4,10 @@
   "description": "",
   "main": "noorsoftbot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "eval $(cat .env) node noorsoftbot.js"
+    "test": "eval $(cat .env) node noorsoftbot.js",
+    "start": "export $(cat .env) && node noorsoftbot.js",
+    "startWin": "set (echo .env) node noorsoftbot.js",
+    "start:prod": "npm i | node noorsoftbot.js"
   },
   "author": "",
   "license": "ISC",
