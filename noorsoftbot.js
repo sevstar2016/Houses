@@ -6,7 +6,7 @@ const { arduino } = require('./arduinoLink.js')
 const bot = new Telegraf(PROJ_KEY.toString())
 const logi = new logining(PASS.toString())
 const PiCamera = require('pi-camera');
-const arduino1 = new arduino('COM8', '\n')
+const arduino = new Arduino('COM8', '\n')
 const myCamera = new PiCamera({
     mode: 'photo',
     output: `${__dirname}/test.jpg`,
@@ -20,12 +20,12 @@ bot.command('/login', async (ctx) => {
 })
 
 bot.command('/ping', async (ctx) => {
-    arduino1.getSensorValue('enc', (val) => {
+    arduino.getSensorValue('enc', (val) => {
         ctx.reply(val);
     })
 })
 
-arduino1.getParser().on('data', data => {
+arduino.getParser().on('data', data => {
     console.log(data)
 })
 
@@ -40,7 +40,7 @@ bot.command('/shot', async (ctx) => {
 })
 
 bot.command('/water', async (ctx) => {
-    arduino1.getSensorValue('0', (value)=>{
+    arduino.getSensorValue('0', (value)=>{
         ctx.reply(value)
         return
     })

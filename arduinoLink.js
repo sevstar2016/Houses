@@ -4,7 +4,7 @@ const ReadLine = require('@serialport/parser-readline')
 
 
 
-class arduino {
+class Arduino {
     constructor(portCon = '', delimeter = '\n', boundRate = 9600) {
         this.portCon = portCon;
         this.delimeter = delimeter
