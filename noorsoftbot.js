@@ -1,7 +1,7 @@
 const { logining } = require('./logging.js')
 const { PROJ_KEY, PASS } = process.env;
 const { Telegraf } = require('telegraf')
-const { arduino } = require('./arduinoLink.js')
+const { Arduino } = require('./arduinoLink.js')
 
 const bot = new Telegraf(PROJ_KEY.toString())
 const logi = new logining(PASS.toString())
