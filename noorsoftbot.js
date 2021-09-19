@@ -37,6 +37,30 @@ bot.hears('water', async (ctx) => {
     }
 })
 
+
+bot.hears('keys', async ctx =>{
+    let message = 'This keyboard'
+    ctx.deleteMessage();
+    
+    bot.telegram.sendMessage(ctx.chat.id, message, {
+        reply_markup:{
+            inline_keyboard: [
+                [
+                    {
+                        text: "lamp",
+                        callback_data: 'lamp'
+                    }
+                ]
+            ]
+        }
+    })
+})
+
+bot.action('lamp', ctx => {
+    arduino.sendToPin('2')
+})
+
+
 console.log('started');
 
 
