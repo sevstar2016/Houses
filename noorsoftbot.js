@@ -8,7 +8,7 @@ require('dotenv').config()
 const bot = new Telegraf(process.env.PROJ_KEY.toString())
 const logi = new logining(process.env.PASS.toString())
 const PiCamera = require('pi-camera');
-const arduino = new Arduino('/dev/ttyUSB0', '\n')
+const arduino = new Arduino('COM7', '\n')
 
 
 bot.hears('help', async ({ reply }) => {
