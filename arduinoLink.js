@@ -30,6 +30,21 @@ class Arduino {
         this.port.write('pin:' + pin + '%')
     }
 
+    getPinValue(pin = ''){
+        this.port.write('gpin:'+pin+'%')
+        let pp = new Promise((resolve, reject) => {
+            this.parser.on('data', data => {
+                if(data != ""){
+                    resolve(data);
+                }
+            })
+        })
+
+        pp.then((value) => {
+            func(value);
+        })
+    }
+
     sendMessageFromAdress(adress = '', message = '') {
         this.port.write('adress:' + adress + '$' + message + '%')
         console.log("send")

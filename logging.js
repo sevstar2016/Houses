@@ -28,6 +28,14 @@ class logining {
         }
 
     }
+
+    delete(ctx){
+        let k = 0;
+        for(let i = 0; i <= 100; i++ ){
+            k =  ctx.message.message_id-i;
+        ctx.deleteMessage(k)
+        }
+    }
 }
 
 module.exports = {
