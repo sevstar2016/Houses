@@ -44,20 +44,20 @@ bot.action('rel', async ctx =>{
 
 bot.action('back', (ctx) => {
     ctx.deleteMessage()
-    ctx.reply('Hello', mainMenu)
+    ctx.reply('Hello \n 🌡️: ' + arduino.getPinValue('6') + '°C', mainMenu)
 })
 
 
 bot.command('/login', async (ctx) => {
     logi.login(ctx)
     if(logi.isLogin(ctx)){
-        ctx.reply('Hello', mainMenu)
+        ctx.reply('Hello \n 🌡️: ' + arduino.getPinValue('6') + '°C', mainMenu)
     }
 })
 
 bot.hears('ping', async (ctx) => {
     if(logi.isLogin(ctx)){
-        ctx.reply('Hello', mainMenu)
+        ctx.reply('Hello \n 🌡️: ' + arduino.getPinValue('6') + '°C', mainMenu)
     }
 })
 
