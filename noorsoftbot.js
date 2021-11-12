@@ -61,7 +61,7 @@ bot.hears('ping', async (ctx) => {
     }
 })
 
-bot.hears('water', async (ctx) => {
+bot.action('water', async (ctx) => {
     if(logi.isLogin(ctx)){
         arduino.getSensorValue('0', (value)=>{
             ctx.reply(value)
