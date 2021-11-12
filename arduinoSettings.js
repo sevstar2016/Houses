@@ -5,7 +5,7 @@ const {sa} = require("yarn/lib/cli");
 const { Arduino } = require('./arduinoLink.js')
 require('dotenv').config()
 
-//const arduino = new Arduino(process.env.AADR)
+const arduino = new Arduino(process.env.AADR)
 
 let mm = Array()
 let rm = Array()
@@ -96,8 +96,9 @@ class ArduinoSettings{
         })
     }
     
-    switch(typeid){
-        if(typeid.split('*').length > 1){
+    switch(typeid, ctx){
+        console.log(typeid.indexOf('*'))
+        if(typeid.indexOf('*') !== -1){
             let type = typeid.split('*')[0]
             let id = typeid.split('*')[1]
             
@@ -106,8 +107,10 @@ class ArduinoSettings{
             if(type === 'rel'){
                 arduino.sendToPin(id)
             }
-            else if(type === 'terms'){
-                arduino.getPinValue(id)
+            else if(type === 'term'){
+                ctx.deleteMessage()
+                ctx.reply('🌡️️: ' + arduino.getPinValue(id).toString)
+                this.preview(ctx, mus[2])
             }
             else if(type === 'serv'){
                 arduino.sendMessageFromAdress(id, '90')

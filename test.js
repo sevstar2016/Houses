@@ -12,16 +12,19 @@ bot.start((ctx) =>{
 })
 
 bot.action('1', (ctx) =>{
-    settings.preview(ctx, settings.switch('1'))
+    settings.preview(ctx, settings.switch('1',ctx))
 })
 bot.action('2', (ctx) =>{
-    settings.preview(ctx, settings.switch('2'))
+    settings.preview(ctx, settings.switch('2',ctx))
 })
 bot.action('3', (ctx) =>{
-    settings.preview(ctx, settings.switch('3'))
+    settings.preview(ctx, settings.switch('3',ctx))
 })
 bot.action('0', (ctx) =>{
-    settings.preview(ctx, settings.switch('0'))
+    settings.preview(ctx, settings.switch('0',ctx))
+})
+bot.action('term*4', (ctx) => {
+    settings.switch('term*4',ctx)
 })
 
 console.log('started');
