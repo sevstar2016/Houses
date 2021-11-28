@@ -1,0 +1,54 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe D:\Projs\Houses\test.js
+
+PATH: 
+  D:\Projs\Houses\node_modules\.bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\ImageMagick-7.1.0-Q16-HDRI;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Users\a123\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\a123\AppData\Local\Programs\Python\Python39\;C:\Users\a123\AppData\Local\Microsoft\WindowsApps;C:\Users\a123\AppData\Roaming\npm;C:\Users\a123\.dotnet\tools;D:\Programs\Microsoft VS Code\bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  16.13.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\Projs\Houses\node_modules\@serialport\bindings\build\Release\bindings.node'
+
+npm manifest: 
+  {
+    "name": "qq",
+    "version": "1.0.0",
+    "description": "",
+    "main": "noorsoftbot.js",
+    "scripts": {
+      "test": "eval $(cat .env) node noorsoftbot.js",
+      "start": "export $(cat .env) && node noorsoftbot.js",
+      "startWin": "set (echo .env) node noorsoftbot.js",
+      "start:prod": "npm i | node noorsoftbot.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "dotenv": "^8.2.0",
+      "epoll": "^4.0.0",
+      "fs": "0.0.1-security",
+      "onoff": "^6.0.1",
+      "serialport": "^9.0.7",
+      "telegraf": "^3.38.0",
+      "telegraf-inline-menu": "^6.3.0",
+      "telegraf-menu": "^1.6.0",
+      "telegram-keyboard": "^2.2.6",
+      "yarn": "^1.22.17"
+    },
+    "devDependencies": {
+      "eslint": "^7.25.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
