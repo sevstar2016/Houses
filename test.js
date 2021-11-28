@@ -27,21 +27,21 @@ bot.action('0', (ctx) =>{
     settings.preview(ctx, settings.switch('0',ctx))
 })
 bot.action('add', (ctx) =>{
-    settings.setAddB(true)
+    addb = true
 })
 bot.action('delete', (ctx) =>{
-    settings.setDelB(true)
+    delb = true
 })
 
 bot.use((ctx) => {
-    if(settings.getAddB()){
-        settings.setAddB(false)
+    if(settings.addb){
+        addb = false
         var strq = ctx.message.text.split(' ');
         settings.add(strq[0], strq[1], strq[2])
         ctx.deleteMessage()
     }
-    else if(settings.getDelB()){
-        settings.setDelB(false)
+    else if(delb){
+        delb = false
         var strq = ctx.message.text.split(' ');
         settings.delete(strq[0], strq[1])
         ctx.deleteMessage()
