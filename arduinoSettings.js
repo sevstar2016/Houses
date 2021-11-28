@@ -8,27 +8,15 @@ require('dotenv').config()
 
 const arduino = new Arduino(process.env.AADR)
 
-let mainMenuButtons = Array()
-let relMenuButtons = Array()
-let termMenuButtons = Array()
-let servMenuButtons = Array()
-let settm = Array()
+let mainMenuButtons = []
+let relMenuButtons = []
+let termMenuButtons = []
+let servMenuButtons = []
+let settm = []
 
-let addm = Array()
-let editm = Array()
-let delm = Array()
-
-let mainmenu
-let relmenu
-let termainMenuButtonsenu
-let servmenu
-let settmenu
-
-let addmenu
-let editmenu
-let delmenu
-
-let mus = [mainmenu, relmenu, termainMenuButtonsenu, servmenu, settmenu, addmenu, editmenu, delmenu]
+let addm = []
+let editm = []
+let delm = []
 
 class ArduinoSettings{
     constructor(settingsPath) {
@@ -37,6 +25,18 @@ class ArduinoSettings{
         
         this.addb = false
         this.delb = false
+
+        this.mainmenu
+        this.remenu
+        this.termmenu
+        this.servmenu
+        this.settmenu
+
+        this.addmenu
+        this.editmenu
+        this.delmenu
+
+        this.mus = [this.mainmenu, this.remenu, this.termmenu, this.servmenu, this.settmenu, this.addmenu, this.editmenu, this.delmenu]
         
         this.update()
     }
@@ -93,29 +93,29 @@ class ArduinoSettings{
             termMenuButtons = Array()
             servMenuButtons = Array()
             
-            if(this.config['rel'].length){
+            if(this.config.rel.length){
                 mainMenuButtons.push(Markup.callbackButton('Реле ⚡', '1'))
 
-                this.config['rel'].forEach(function(rel, index, array){
-                    relMenuButtons.push(Markup.callbackButton(rel['name'], 'rel*'+rel['id']))
+                this.config.rel.forEach(function(rel, index, array){
+                    relMenuButtons.push(Markup.callbackButton(rel.name, 'rel*'+rel.id))
                 })
                 
                 relMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
             }
-            if(this.config['term'].length){
+            if(this.config.term.length){
                 mainMenuButtons.push(Markup.callbackButton('Температура 🌡️️', '2'))
 
-                this.config['term'].forEach((term, index, array) =>{
-                    termMenuButtons.push(Markup.callbackButton(term['name'], 'term*'+term['id']))
+                this.config.term.forEach((term, index, array) =>{
+                    termMenuButtons.push(Markup.callbackButton(term.name, 'term*'+term.id))
                 })
                 
                 termMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
             }
-            if(this.config['serv'].length){
+            if(this.config.serv.length){
                 mainMenuButtons.push(Markup.callbackButton('Серваки', '3'))
 
-                this.config['serv'].forEach((serv, index, array) => {
-                    servMenuButtons.push(Markup.callbackButton(serv['name'], 'serv*'+serv['id']))
+                this.config.serv.forEach((serv, index, array) => {
+                    servMenuButtons.push(Markup.callbackButton(serv.name, 'serv*'+serv.id))
                 })
                 
                 servMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
@@ -131,17 +131,17 @@ class ArduinoSettings{
             
             resolve()
         }).then(() => {
-            mainmenu = Markup.inlineKeyboard(mainMenuButtons).extra()
-            relmenu = Markup.inlineKeyboard(relMenuButtons).extra()
-            termainMenuButtonsenu = Markup.inlineKeyboard(termMenuButtons).extra()
-            servmenu = Markup.inlineKeyboard(servMenuButtons).extra()
-            settmenu = Markup.inlineKeyboard(settm).extra()
+            this.mainmenu = Markup.inlineKeyboard(mainMenuButtons).extra()
+            this.remenu = Markup.inlineKeyboard(relMenuButtons).extra()
+            this.termmenu = Markup.inlineKeyboard(termMenuButtons).extra()
+            this.servmenu = Markup.inlineKeyboard(servMenuButtons).extra()
+            this.settmenu = Markup.inlineKeyboard(settm).extra()
             
-            addmenu = Markup.inlineKeyboard(addm).extra()
-            //editmenu = Markup.inlineKeyboard(editm).extra()
-            delmenu = Markup.inlineKeyboard(delm).extra()
+            this.addmenu = Markup.inlineKeyboard(addm).extra()
+            //this.editmenu = Markup.inlineKeyboard(editm).extra()
+            this.delmenu = Markup.inlineKeyboard(delm).extra()
             
-            mus = [ mainmenu, relmenu, termainMenuButtonsenu, servmenu, settmenu, addmenu, editmenu, delmenu]
+            this.mus = [ this.mainmenu, this.remenu, this.termmenu, this.servmenu, this.settmenu, this.addmenu, this.editmenu, this.delmenu]
         })
     }
     
@@ -158,7 +158,7 @@ class ArduinoSettings{
             else if(type === 'term'){
                 ctx.deleteMessage()
                 ctx.reply('🌡️️: ' + arduino.getPinValue(id).toString)
-                this.preview(ctx, mus[2])
+                this.preview(ctx, this.mus[2])
             }
             else if(type === 'serv'){
                 arduino.sendMessageFromAdress(id, '90')
@@ -169,7 +169,7 @@ class ArduinoSettings{
     }
 
     menu(id) {
-        return mus[id]
+        return this.mus[id]
     }
 }
 
