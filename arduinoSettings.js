@@ -37,7 +37,7 @@ let delb = false
 class ArduinoSettings{
     constructor(settingsPath) {
         this.settingsPath = settingsPath
-        this.json = JSON.parse(fs.readFileSync(this.settingsPath).toString().trim())
+        this.config = JSON.parse(fs.readFileSync(this.settingsPath).toString().trim())
         
         this.update()
     }
@@ -48,31 +48,32 @@ class ArduinoSettings{
     }
     
     add(obj, name, id){
-        this.json[obj].forEach((ob, index, array) => {
+        this.config[obj].find((ob, index, array) => {
             if(ob['id'] === id){
                 ob['name'] = name
-                this.save()
-                this.update()
+                return true
             }else if(ob['id'] !== id){
-                this.json[obj].push({"id": id, "name": name})
-                this.save()
-                this.update()
+                this.config[obj].push({"id": id, "name": name})
+                return true
             }
         })
+        this.save()
+        this.update()
     }
     
     delete(obj, id){
-        this.json[obj].forEach((ob, index, array) => {
+        this.config[obj].find((ob, index, array) => {
             if(ob['id'] === id) {
-                delete this.json[obj]
+                delete this.config[obj]
                 this.save()
                 this.update()
+                return true
             }
         })
     }
     
     edit(obj, name, id){
-        this.json[obj].forEach((ob, index, array) => {
+        this.config[obj].forEach((ob, index, array) => {
             if(ob['id'] === id) {
                 ob['name'] = name
             }
@@ -85,41 +86,41 @@ class ArduinoSettings{
     }
     
     save(){
-        fs.writeFileSync(this.settingsPath, JSON.stringify(this.json))
+        fs.writeFileSync(this.settingsPath, JSON.stringify(this.config))
     }
     
     update(){
 
         new Promise((resolve, reject) => {
-            this.json = JSON.parse(fs.readFileSync(this.settingsPath).toString().trim())
+            this.config = JSON.parse(fs.readFileSync(this.settingsPath).toString().trim())
             
             mm = Array()
             rm = Array()
             tm = Array()
             sm = Array()
             
-            if(this.json['rel'].length){
+            if(this.config['rel'].length){
                 mm.push(Markup.callbackButton('Реле ⚡', '1'))
 
-                this.json['rel'].forEach(function(rel, index, array){
+                this.config['rel'].forEach(function(rel, index, array){
                     rm.push(Markup.callbackButton(rel['name'], 'rel*'+rel['id']))
                 })
                 
                 rm.push(Markup.callbackButton('Гл. меню', '0'))
             }
-            if(this.json['term'].length){
+            if(this.config['term'].length){
                 mm.push(Markup.callbackButton('Температура 🌡️️', '2'))
 
-                this.json['term'].forEach((term, index, array) =>{
+                this.config['term'].forEach((term, index, array) =>{
                     tm.push(Markup.callbackButton(term['name'], 'term*'+term['id']))
                 })
                 
                 tm.push(Markup.callbackButton('Гл. меню', '0'))
             }
-            if(this.json['serv'].length){
+            if(this.config['serv'].length){
                 mm.push(Markup.callbackButton('Серваки', '3'))
 
-                this.json['serv'].forEach((serv, index, array) => {
+                this.config['serv'].forEach((serv, index, array) => {
                     sm.push(Markup.callbackButton(serv['name'], 'serv*'+serv['id']))
                 })
                 
