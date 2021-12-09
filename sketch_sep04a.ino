@@ -59,6 +59,9 @@ void loop() {
       else if(str.substring(0, str.indexOf(":")) == "pin"){
         digitalWrite(str.substring(4, str.indexOf('%')).toInt(), !digitalRead(str.substring(4, str.indexOf('%')).toInt()));
       }
+      else if(str.substring(0, str.indexOf(":")) == "gpin"){
+        Serial.println(digitalRead(str.substring(5, str.indexOf('%')).toInt()));
+      }
     }
   }
 }

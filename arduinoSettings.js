@@ -1,9 +1,9 @@
 ﻿const fs = require('fs');
 const { Telegraf, Context} = require('telegraf')
 const Markup = require('telegraf/markup')
-const {sa, mark, smirk, bread} = require("yarn/lib/cli");
+const {sa, mark, smirk, bread} = require('yarn/lib/cli');
 const { Arduino } = require('./arduinoLink.js')
-const {deleteMenuFromContext} = require("telegraf-inline-menu");
+const {deleteMenuFromContext} = require('telegraf-inline-menu');
 require('dotenv').config()
 
 const arduino = new Arduino(process.env.AADR)
@@ -37,13 +37,14 @@ class ArduinoSettings{
         this.delmenu
 
         this.mus = [this.mainmenu, this.remenu, this.termmenu, this.servmenu, this.settmenu, this.addmenu, this.editmenu, this.delmenu]
+        this.text = ['Главное меню', 'Реле', 'Температура', 'Сервоприводы', 'Настройки', 'Добавить', 'Редактирование', 'Удалить']
         
         this.update()
     }
     
-    preview(ctx, menu){
+    preview(ctx, menu, id = 1){
         ctx.deleteMessage()
-        ctx.reply('.', menu)
+        ctx.reply(this.text[id], menu)
     }
     
     add(obj, name, id){
@@ -88,10 +89,10 @@ class ArduinoSettings{
         new Promise((resolve, reject) => {
             this.config = JSON.parse(fs.readFileSync(this.settingsPath).toString().trim())
             
-            mainMenuButtons = Array()
-            relMenuButtons = Array()
-            termMenuButtons = Array()
-            servMenuButtons = Array()
+            mainMenuButtons = []
+            relMenuButtons = []
+            termMenuButtons = []
+            servMenuButtons = []
             
             if(this.config.rel.length){
                 mainMenuButtons.push(Markup.callbackButton('Реле ⚡', '1'))
@@ -121,9 +122,12 @@ class ArduinoSettings{
                 servMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
             }
             
+            editm.push(Markup.callbackButton('Сменить пароль', 'editp'))
+            editm.push(Markup.callbackButton('Гл. меню', '0'))
+            
             mainMenuButtons.push(Markup.callbackButton('Настройки', '4'))
             settm.push(Markup.callbackButton('Добавить', 'add'))
-            //settm.push(Markup.callbackButton('Изменить', 'edit'))
+            settm.push(Markup.callbackButton('Изменить', 'edit'))
             settm.push(Markup.callbackButton('Удалить', 'delete'))
             settm.push(Markup.callbackButton('Гл. меню', '0'))
             
@@ -138,7 +142,7 @@ class ArduinoSettings{
             this.settmenu = Markup.inlineKeyboard(settm).extra()
             
             this.addmenu = Markup.inlineKeyboard(addm).extra()
-            //this.editmenu = Markup.inlineKeyboard(editm).extra()
+            this.editmenu = Markup.inlineKeyboard(editm).extra()
             this.delmenu = Markup.inlineKeyboard(delm).extra()
             
             this.mus = [ this.mainmenu, this.remenu, this.termmenu, this.servmenu, this.settmenu, this.addmenu, this.editmenu, this.delmenu]
@@ -157,7 +161,6 @@ class ArduinoSettings{
             }
             else if(type === 'term'){
                 ctx.deleteMessage()
-                ctx.reply('🌡️️: ' + arduino.getPinValue(id).toString)
                 this.preview(ctx, this.mus[2])
             }
             else if(type === 'serv'){
