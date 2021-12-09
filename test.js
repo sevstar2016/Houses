@@ -46,13 +46,13 @@ bot.action('editp', (ctx) => {
 bot.use((ctx) => {
     if(settings.addb){
         settings.addb = false
-        var strq = ctx.message.text.split(' ');
+        let strq = ctx.message.text.split(' ');
         settings.add(strq[0], strq[1], strq[2])
         ctx.deleteMessage()
     }
     else if(settings.delb){
         settings.delb = false
-        var strq = ctx.message.text.split(' ');
+        let strq = ctx.message.text.split(' ');
         settings.delete(strq[0], strq[1])
         ctx.deleteMessage()
     }
