@@ -6,16 +6,20 @@ const ReadLine = require('@serialport/parser-readline')
 
 class Arduino {
     constructor(portCon = '', delimeter = '\n', boundRate = 9600) {
-        this.portCon = portCon;
-        this.delimeter = delimeter
-        this.boundRate = boundRate
+        try{
+            this.portCon = portCon;
+            this.delimeter = delimeter
+            this.boundRate = boundRate
 
-        this.port = new SerialPort(portCon, { boundRate })
-        this.parser = this.port.pipe(new ReadLine({ delimeter }))
-        this.port.on("open", () => {
-            console.log('serial port open')
-        })
-        this.value = "";
+            this.port = new SerialPort(portCon, { boundRate })
+            this.parser = this.port.pipe(new ReadLine({ delimeter }))
+            this.port.on("open", () => {
+                console.log('serial port open')
+            })
+            this.value = "";
+        }catch (e){
+            console.log('qq')
+        }
     }
 
     getPort() {

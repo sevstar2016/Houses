@@ -131,7 +131,7 @@ class ArduinoSettings{
             settm.push(Markup.callbackButton('Удалить', 'delete'))
             settm.push(Markup.callbackButton('Гл. меню', '0'))
             
-            
+            mainMenuButtons.push(Markup.callbackButton('Камера', 'cam'))
             
             resolve()
         }).then(() => {
