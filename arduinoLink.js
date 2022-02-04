@@ -53,11 +53,7 @@ class Arduino {
         this.port.write('adress:' + adress + '$' + message + '%')
         console.log("send")
     }
-
-    retValue(){
-        return value;
-    }
-
+    
     getSensorValue(pin = '', func) {
         this.port.write('get:'+pin+'%')
         let pp = new Promise((resolve, reject) => {

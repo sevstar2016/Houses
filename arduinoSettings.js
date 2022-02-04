@@ -2,11 +2,8 @@
 const { Telegraf, Context} = require('telegraf')
 const Markup = require('telegraf/markup')
 const {sa, mark, smirk, bread} = require('yarn/lib/cli');
-const { Arduino } = require('./arduinoLink.js')
 const {deleteMenuFromContext} = require('telegraf-inline-menu');
 require('dotenv').config()
-
-const arduino = new Arduino(process.env.AADR)
 
 let mainMenuButtons = []
 let relMenuButtons = []
@@ -42,9 +39,9 @@ class ArduinoSettings{
         this.update()
     }
     
-    preview(ctx, menu, id = 1){
+    preview(ctx, id = 0){
         ctx.deleteMessage()
-        ctx.reply(this.text[id], menu)
+        ctx.reply(this.text[id], this.mus[id])
     }
     
     add(obj, name, id){
@@ -95,7 +92,7 @@ class ArduinoSettings{
             servMenuButtons = []
             
             if(this.config.rel.length){
-                mainMenuButtons.push(Markup.callbackButton('Реле ⚡', '1'))
+                mainMenuButtons.push(Markup.callbackButton('Реле ⚡', 'relm'))
 
                 this.config.rel.forEach(function(rel, index, array){
                     relMenuButtons.push(Markup.callbackButton(rel.name, 'rel*'+rel.id))
@@ -104,7 +101,7 @@ class ArduinoSettings{
                 relMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
             }
             if(this.config.term.length){
-                mainMenuButtons.push(Markup.callbackButton('Температура 🌡️️', '2'))
+                mainMenuButtons.push(Markup.callbackButton('Температура 🌡️️', 'termm'))
 
                 this.config.term.forEach((term, index, array) =>{
                     termMenuButtons.push(Markup.callbackButton(term.name, 'term*'+term.id))
@@ -113,7 +110,7 @@ class ArduinoSettings{
                 termMenuButtons.push(Markup.callbackButton('Гл. меню', '0'))
             }
             if(this.config.serv.length){
-                mainMenuButtons.push(Markup.callbackButton('Серваки', '3'))
+                mainMenuButtons.push(Markup.callbackButton('Серваки', 'servm'))
 
                 this.config.serv.forEach((serv, index, array) => {
                     servMenuButtons.push(Markup.callbackButton(serv.name, 'serv*'+serv.id))
@@ -147,28 +144,6 @@ class ArduinoSettings{
             
             this.mus = [ this.mainmenu, this.remenu, this.termmenu, this.servmenu, this.settmenu, this.addmenu, this.editmenu, this.delmenu]
         })
-    }
-    
-    switch(typeid, ctx){
-        if(typeid.indexOf('*') !== -1){
-            let type = typeid.split('*')[0]
-            let id = typeid.split('*')[1]
-            
-            console.log('*')
-            
-            if(type === 'rel'){
-                arduino.sendToPin(id)
-            }
-            else if(type === 'term'){
-                ctx.deleteMessage()
-                this.preview(ctx, this.mus[2])
-            }
-            else if(type === 'serv'){
-                arduino.sendMessageFromAdress(id, '90')
-            }
-        }else{
-            return this.menu(parseInt(typeid))
-        }
     }
 
     menu(id) {
