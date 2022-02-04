@@ -2,12 +2,12 @@
   "name": "qq",
   "version": "1.0.0",
   "description": "",
-  "main": "noorsoftbot.js",
+  "main": "release.js",
   "scripts": {
-    "test": "eval $(cat .env) node noorsoftbot.js",
-    "start": "export $(cat .env) && node noorsoftbot.js",
-    "startWin": "set (echo .env) node noorsoftbot.js",
-    "start:prod": "npm i | node noorsoftbot.js"
+    "test": "eval $(cat .env) node release.js",
+    "start": "export $(cat .env) && node release.js",
+    "startWin": "set (echo .env) node release.js",
+    "start:prod": "npm i | node release.js"
   },
   "author": "",
   "license": "ISC",
