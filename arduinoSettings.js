@@ -90,6 +90,7 @@ class ArduinoSettings{
             relMenuButtons = []
             termMenuButtons = []
             servMenuButtons = []
+            settm = []
             
             if(this.config.rel.length){
                 mainMenuButtons.push(Markup.callbackButton('Реле ⚡', 'relm'))

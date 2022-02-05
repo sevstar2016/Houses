@@ -8,7 +8,13 @@ class logining {
     }
 
     isLogin(ctx) {
-        let id = ctx.message.chat.id.toString()
+        let id = ''
+        try{
+            id = ctx.callbackQuery.message.chat.id.toString()
+        }
+        catch {
+            id = ctx.message.chat.id.toString()
+        }
         console.log(this.users)
         return this.users.includes(id)
     }
