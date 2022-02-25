@@ -2,7 +2,7 @@
 const { Telegraf, Context} = require('telegraf')
 const Markup = require('telegraf/markup')
 const {sa, mark, smirk, bread} = require('yarn/lib/cli');
-const {deleteMenuFromContext} = require('telegraf-inline-menu');
+const {deleteMenuFromContext} = require('telegraf-inline-menu')
 require('dotenv').config()
 
 let mainMenuButtons = []

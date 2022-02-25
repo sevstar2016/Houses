@@ -2,12 +2,11 @@
 const { Telegraf, Context} = require('telegraf')
 const Markup = require('telegraf/markup')
 const {ArduinoSettings} = require('./arduinoSettings.js')
-const { Arduino } = require('./arduinoLink.js')
+const rasp = new require('./rasp.js').rasp()
 const NodeWebcam = require( "node-webcam" )
 const { logining } = require('./logging.js')
 require('dotenv').config()
 
-const arduino = new Arduino(process.env.AADR)
 const settings = new ArduinoSettings('settings.json')
 const logi = new logining(process.env.PASS.toString())
 const bot = new Telegraf(process.env.PROJ_KEY)
@@ -149,16 +148,18 @@ bot.on('callback_query', (ctx) => {
                 break
 
             case 'rel':
-                arduino.sendToPin(str[1])
+                ctx.reply('Вкл')
+                rasp.sendToPin(str[1])
                 break
             case 'term':
-                arduino.getSensorValue(str[1], (value) => {
+                rasp.getSensorValue(str[1], (value) => {
                     ctx.reply(value)
                 })
                 break
             case 'serv':
                 bot.use(cxt => {
-                    arduino.sendMessageFromAdress(str[1], ctx.message.text)
+                    rasp.sendMessageFromAdress(str[1], ctx.message.text)
+                    ctx.reply('Отправлено')
                 })
         }
     }
