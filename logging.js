@@ -8,7 +8,13 @@ class logining {
     }
 
     isLogin(ctx) {
-        let id = ctx.message.chat.id.toString()
+        let id = ''
+        try{
+            id = ctx.callbackQuery.message.chat.id.toString()
+        }
+        catch {
+            id = ctx.message.chat.id.toString()
+        }
         console.log(this.users)
         return this.users.includes(id)
     }
@@ -27,6 +33,14 @@ class logining {
             }
         }
 
+    }
+
+    delete(ctx){
+        let k = 0;
+        for(let i = 0; i <= 100; i++ ){
+            k =  ctx.message.message_id-i;
+        ctx.deleteMessage(k)
+        }
     }
 }
 

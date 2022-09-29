@@ -2,12 +2,12 @@
   "name": "qq",
   "version": "1.0.0",
   "description": "",
-  "main": "noorsoftbot.js",
+  "main": "release.js",
   "scripts": {
-    "test": "eval $(cat .env) node noorsoftbot.js",
-    "start": "export $(cat .env) && node noorsoftbot.js",
-    "startWin": "set (echo .env) node noorsoftbot.js",
-    "start:prod": "npm i | node noorsoftbot.js"
+    "test": "eval $(cat .env) node release.js",
+    "start": "export $(cat .env) && node release.js",
+    "startWin": "set (echo .env) node release.js",
+    "start:prod": "npm i | node release.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,11 +15,14 @@
     "dotenv": "^8.2.0",
     "epoll": "^4.0.0",
     "fs": "0.0.1-security",
+    "node-webcam": "^0.8.0",
     "onoff": "^6.0.1",
-    "pi-camera": "^1.5.0",
-    "serialport": "^9.0.7",
+    "serialport": "^9.2.8",
     "telegraf": "^3.38.0",
-    "telegram-keyboard": "^2.2.6"
+    "telegraf-inline-menu": "^6.3.0",
+    "telegraf-menu": "^1.6.0",
+    "telegram-keyboard": "^2.2.6",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
